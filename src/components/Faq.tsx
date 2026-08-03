@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { Reveal } from "@/components/Reveal";
 
 interface FaqSection {
   heading: string;
@@ -115,7 +117,14 @@ export function Faq() {
 
   return (
     <section className="w-full bg-[var(--color-paper)]">
-      <div className="mx-auto flex w-full max-w-[720px] flex-col gap-2 px-6 py-12 sm:px-10 sm:py-16">
+      <div className="mx-auto flex w-full max-w-[720px] flex-col gap-8 px-6 py-12 sm:px-10 sm:py-16">
+        <Reveal>
+          <h2 className="text-center text-[24px] leading-[1.3] font-bold tracking-[-0.4px] text-[var(--color-slate-900)] sm:text-[30px] sm:leading-[1.33]">
+            Questions Roofers Ask Us
+          </h2>
+        </Reveal>
+
+        <Reveal className="flex flex-col gap-2">
         {faqItems.map((item, index) => {
           const isOpen = openIndex === index;
           return (
@@ -129,40 +138,56 @@ export function Faq() {
                 <span className="text-[16px] leading-[1.4] font-semibold text-[var(--color-slate-900)] sm:text-[18px]">
                   {item.question}
                 </span>
-                <span aria-hidden className="text-[20px] leading-none text-[var(--color-slate-600)]">
-                  {isOpen ? "−" : "+"}
-                </span>
+                <motion.span
+                  aria-hidden
+                  animate={{ rotate: isOpen ? 45 : 0 }}
+                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-[20px] leading-none text-[var(--color-slate-600)]"
+                >
+                  +
+                </motion.span>
               </button>
-              {isOpen && (
-                <div className="flex flex-col gap-4 pb-4">
-                  {item.paragraphs.map((paragraph) => (
-                    <p key={paragraph} className="text-[16px] leading-[1.5] text-[var(--color-slate-600)]">
-                      {paragraph}
-                    </p>
-                  ))}
-                  {item.sections?.map((section) => (
-                    <div key={section.heading} className="flex flex-col gap-2">
-                      <h4 className="text-[15px] leading-[1.4] font-semibold text-[var(--color-slate-900)]">
-                        {section.heading}
-                      </h4>
-                      <ul className="flex flex-col gap-1.5">
-                        {section.items.map((sectionItem) => (
-                          <li
-                            key={sectionItem}
-                            className="flex gap-2 text-[15px] leading-[1.5] text-[var(--color-slate-600)]"
-                          >
-                            <span aria-hidden>&ndash;</span>
-                            <span>{sectionItem}</span>
-                          </li>
-                        ))}
-                      </ul>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                    className="overflow-hidden"
+                  >
+                    <div className="flex flex-col gap-4 pb-4">
+                      {item.paragraphs.map((paragraph) => (
+                        <p key={paragraph} className="text-[16px] leading-[1.5] text-[var(--color-slate-600)]">
+                          {paragraph}
+                        </p>
+                      ))}
+                      {item.sections?.map((section) => (
+                        <div key={section.heading} className="flex flex-col gap-2">
+                          <h4 className="text-[15px] leading-[1.4] font-semibold text-[var(--color-slate-900)]">
+                            {section.heading}
+                          </h4>
+                          <ul className="flex flex-col gap-1.5">
+                            {section.items.map((sectionItem) => (
+                              <li
+                                key={sectionItem}
+                                className="flex gap-2 text-[15px] leading-[1.5] text-[var(--color-slate-600)]"
+                              >
+                                <span aria-hidden>&ndash;</span>
+                                <span>{sectionItem}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           );
         })}
+        </Reveal>
       </div>
     </section>
   );

@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { AnimatedNumber } from "@/components/AnimatedNumber";
+import { Reveal } from "@/components/Reveal";
 
 const INDUSTRY_AVERAGE_JOB_VALUE = 800;
 const EXTRA_JOBS_PER_MONTH = 10;
@@ -30,9 +32,11 @@ export function Calculator() {
   return (
     <section id="calculator" className="w-full bg-[var(--color-paper)]">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-8 px-6 py-12 sm:px-10 sm:py-16">
-        <h2 className="max-w-[560px] text-center text-[24px] leading-[1.35] font-semibold text-[var(--color-slate-900)]">
-          See What Just 10 More Jobs A Month Could Mean For You.
-        </h2>
+        <Reveal>
+          <h2 className="max-w-[560px] text-center text-[24px] leading-[1.3] font-bold tracking-[-0.4px] text-[var(--color-slate-900)] sm:text-[30px] sm:leading-[1.33]">
+            See What Just 10 More Jobs A Month Could Mean For You.
+          </h2>
+        </Reveal>
 
         <div className="flex w-full max-w-[320px] flex-col gap-2">
           <label
@@ -60,15 +64,19 @@ export function Calculator() {
             <span className="text-[12px] font-medium tracking-[0.3px] text-[var(--color-vermillion-signal)] uppercase">
               Your extra revenue
             </span>
-            <span className="text-[36px] leading-[1.1] font-light tracking-[-0.8px] text-[var(--color-slate-900)] sm:text-[48px]">
-              {formatCurrency(monthlyExtra)}
-            </span>
+            <AnimatedNumber
+              value={monthlyExtra}
+              format={formatCurrency}
+              className="text-[36px] leading-[1.1] font-light tracking-[-0.8px] text-[var(--color-slate-900)] sm:text-[48px]"
+            />
             <span className="text-[14px] leading-[1.43] text-[var(--color-slate-600)]">
               extra per month
             </span>
-            <span className="mt-2 text-[24px] leading-[1.3] font-normal text-[var(--color-slate-900)]">
-              {formatCurrency(yearlyExtra)}
-            </span>
+            <AnimatedNumber
+              value={yearlyExtra}
+              format={formatCurrency}
+              className="mt-2 text-[24px] leading-[1.3] font-normal text-[var(--color-slate-900)]"
+            />
             <span className="text-[14px] leading-[1.43] text-[var(--color-slate-600)]">
               per year
             </span>
@@ -101,7 +109,7 @@ export function Calculator() {
             </div>
             <div className="h-3 w-full rounded-[8px] bg-[var(--color-frost)]">
               <div
-                className="h-3 rounded-[8px] bg-[var(--color-cloud)]"
+                className="h-3 rounded-[8px] bg-[var(--color-cloud)] transition-[width] duration-500 ease-out"
                 style={{ width: `${Math.max(industryBarWidth, 2)}%` }}
               />
             </div>
@@ -114,7 +122,7 @@ export function Calculator() {
             </div>
             <div className="h-3 w-full rounded-[8px] bg-[var(--color-frost)]">
               <div
-                className="h-3 rounded-[8px] bg-[var(--color-vermillion-signal)]"
+                className="h-3 rounded-[8px] bg-[var(--color-vermillion-signal)] transition-[width] duration-500 ease-out"
                 style={{ width: `${Math.max(yourBarWidth, 2)}%` }}
               />
             </div>

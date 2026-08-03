@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import { motion } from "motion/react";
 
 // TODO: replace with your real Make.com webhook URL once created
 const MAKE_WEBHOOK_URL = "https://hook.us1.make.com/REPLACE_WITH_YOUR_WEBHOOK_ID";
@@ -49,8 +50,11 @@ export function BookingForm() {
 
   if (status === "submitted") {
     return (
-      <div
+      <motion.div
         id="booking-form"
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         className="flex w-full flex-col items-center gap-2 rounded-[8px] border border-[var(--color-frost)] bg-white/95 p-8 text-center"
       >
         <p className="text-[20px] leading-[1.3] font-bold text-[var(--color-slate-900)]">
@@ -59,7 +63,7 @@ export function BookingForm() {
         <p className="text-[16px] leading-[1.5] text-[var(--color-slate-600)]">
           We&apos;ll be in touch shortly.
         </p>
-      </div>
+      </motion.div>
     );
   }
 
@@ -152,7 +156,7 @@ export function BookingForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="mt-2 w-full rounded-[8px] bg-[var(--color-vermillion-signal)] px-6 py-4 text-[16px] font-medium tracking-[0.025em] text-white uppercase transition-opacity hover:opacity-90 disabled:opacity-60"
+        className="mt-2 w-full rounded-[8px] bg-[var(--color-vermillion-signal)] px-6 py-4 text-[16px] font-medium tracking-[0.025em] text-white uppercase transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:active:scale-100"
       >
         {status === "submitting" ? "Submitting..." : "Book My Strategy Call"}
       </button>
