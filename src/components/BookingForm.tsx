@@ -4,7 +4,7 @@ import { useState, type FormEvent } from "react";
 import { motion } from "motion/react";
 
 // TODO: replace with your real Make.com webhook URL once created
-const MAKE_WEBHOOK_URL = "https://hook.us1.make.com/REPLACE_WITH_YOUR_WEBHOOK_ID";
+const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/cxhc0a0gyd12syuc99dox8v2b4c9pegt";
 
 const revenueOptions = ["Under $20k", "$20k - $50k", "$50k - $100k", "$100k+"];
 
