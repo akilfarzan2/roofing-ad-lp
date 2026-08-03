@@ -102,21 +102,23 @@ export function DeepProcess() {
 
       <section className="w-full bg-[var(--color-carbon)]">
         <Reveal className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-8 px-6 py-14 sm:px-10 sm:py-16">
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            {connectorGroup.map((step, index) => (
-              <div key={step} className="flex items-center gap-2">
-                <span className="rounded-[8px] border border-white/15 bg-white/5 px-3 py-1 text-[12px] font-medium tracking-[0.3px] text-white uppercase">
-                  {step}
-                </span>
-                {index < connectorGroup.length - 1 && (
-                  <span aria-hidden className="text-white/40">
-                    +
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              {connectorGroup.map((step, index) => (
+                <div key={step} className="flex items-center gap-2">
+                  <span className="rounded-[8px] border border-white/15 bg-white/5 px-3 py-1 text-[12px] font-medium tracking-[0.3px] text-white uppercase">
+                    {step}
                   </span>
-                )}
-              </div>
-            ))}
+                  {index < connectorGroup.length - 1 && (
+                    <span aria-hidden className="text-white/40">
+                      +
+                    </span>
+                  )}
+                </div>
+              ))}
+            </div>
             <span aria-hidden className="text-white/40">
-              &rarr;
+              &darr;
             </span>
             <span className="rounded-[8px] border border-[var(--color-vermillion-signal)] bg-white/5 px-3 py-1 text-[12px] font-medium tracking-[0.3px] text-[var(--color-vermillion-signal)] uppercase">
               {connectorOutcome}
