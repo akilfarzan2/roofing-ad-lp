@@ -43,10 +43,11 @@ export function Proof() {
               <StatBlock />
             </RevealItem>
             <RevealItem className="relative mt-3">
-              <ProofBadge label="Recommended By AI" />
+              <ProofBadge label="Recommended By ChatGPT" />
               <ClickableImage
                 src="/proof/chatgpt-recommendation.png"
                 alt="ChatGPT recommending All Clutch & Brake Service"
+                fit="cover"
               />
             </RevealItem>
             <RevealItem className="relative mt-3">
@@ -54,6 +55,9 @@ export function Proof() {
               <ClickableImage
                 src="/proof/google-search-result.png"
                 alt="All Clutch & Brake Service ranking #1 on Google Search"
+                fit="cover"
+                cropPosition="left"
+                aspectRatio="3/2"
               />
             </RevealItem>
           </RevealGroup>

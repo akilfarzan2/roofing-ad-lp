@@ -19,7 +19,7 @@ export function Hero() {
 
           {/* Subheadline */}
           <p className="max-w-[480px] text-[18px] leading-[1.5] text-[var(--color-slate-600)] italic">
-            Get the right work, every month, without relying on word-of-mouth or paying for leads.
+            Get the right work, every month
           </p>
         </Reveal>
 

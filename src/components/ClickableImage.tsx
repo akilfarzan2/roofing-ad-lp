@@ -6,9 +6,19 @@ interface ClickableImageProps {
   src: string;
   alt: string;
   caption?: string;
+  fit?: "contain" | "cover";
+  cropPosition?: "center" | "left";
+  aspectRatio?: string;
 }
 
-export function ClickableImage({ src, alt, caption }: ClickableImageProps) {
+export function ClickableImage({
+  src,
+  alt,
+  caption,
+  fit = "contain",
+  cropPosition = "center",
+  aspectRatio = "4/3",
+}: ClickableImageProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,10 +26,20 @@ export function ClickableImage({ src, alt, caption }: ClickableImageProps) {
       <button
         type="button"
         onClick={() => setIsOpen(true)}
-        className="flex w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-[8px] border border-[var(--color-frost)] bg-[var(--color-vellum)] p-2"
+        className="flex w-full cursor-zoom-in items-center justify-center overflow-hidden rounded-[8px] border border-[var(--color-frost)] bg-[var(--color-vellum)] p-1.5"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={alt} className="max-h-[420px] w-full object-contain" />
+        {fit === "cover" ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={src}
+            alt={alt}
+            className={`w-full object-cover ${cropPosition === "left" ? "object-left" : "object-center"}`}
+            style={{ aspectRatio }}
+          />
+        ) : (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={src} alt={alt} className="max-h-[600px] w-full object-contain" />
+        )}
       </button>
       {caption && (
         <span className="text-center text-[14px] leading-[1.43] text-[var(--color-slate-700)]">{caption}</span>
