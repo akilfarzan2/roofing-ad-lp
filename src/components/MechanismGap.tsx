@@ -15,7 +15,7 @@ export function MechanismGap() {
           {/* Block 1: search demand claim + proof */}
           <Reveal className="flex w-full max-w-[640px] flex-col items-center gap-4">
             <p className="text-center text-[18px] leading-[1.5] text-[var(--color-slate-900)]">
-              Up to 10,000 people are searching &ldquo;roof replacement near me&rdquo; on Google - every month, across Australia.
+              Up to 10,000 people are searching &ldquo;roof repairs near me&rdquo; on Google - every month, across Australia.
             </p>
             <ClickableImage
               src="/proof/keyword-planner.png"
