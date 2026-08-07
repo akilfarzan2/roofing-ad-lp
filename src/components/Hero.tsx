@@ -8,11 +8,14 @@ export function Hero() {
       <div className="mx-auto flex min-h-[100svh] w-full max-w-[1200px] flex-col items-center justify-center gap-8 px-6 py-16 text-center sm:px-10">
         <Reveal className="flex max-w-[720px] flex-col items-center gap-4">
           {/* Logo */}
+          {/* Renders ~73px wide at most, so cap what the optimiser serves —
+              this is preloaded and competes directly with LCP. */}
           <Image
             src="/monarc-logo.png"
             alt="Monarc Labs"
-            width={910}
-            height={794}
+            width={182}
+            height={159}
+            sizes="87px"
             priority
             className="h-[64px] w-auto sm:h-[76px]"
           />

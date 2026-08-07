@@ -7,8 +7,9 @@ export function Footer() {
         <Image
           src="/monarc-logo.png"
           alt="Monarc Labs"
-          width={910}
-          height={794}
+          width={182}
+          height={159}
+          sizes="69px"
           className="h-[52px] w-auto sm:h-[60px]"
         />
         <p className="text-[13px] leading-[1.5] text-[var(--color-slate-600)]">
