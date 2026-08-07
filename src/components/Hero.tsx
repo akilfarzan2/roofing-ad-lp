@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { BookingForm } from "@/components/BookingForm";
 import { Reveal } from "@/components/Reveal";
 
@@ -6,6 +7,16 @@ export function Hero() {
     <section className="w-full bg-[var(--color-paper)]">
       <div className="mx-auto flex min-h-[100svh] w-full max-w-[1200px] flex-col items-center justify-center gap-8 px-6 py-16 text-center sm:px-10">
         <Reveal className="flex max-w-[720px] flex-col items-center gap-4">
+          {/* Logo */}
+          <Image
+            src="/monarc-logo.png"
+            alt="Monarc Labs"
+            width={910}
+            height={794}
+            priority
+            className="h-[64px] w-auto sm:h-[76px]"
+          />
+
           {/* Eyebrow line */}
           <p className="text-[14px] leading-[1.43] text-[var(--color-slate-600)]">
 Aussie Auto Repair Shop Owners — You Don't Know This Yet
