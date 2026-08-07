@@ -20,6 +20,8 @@ export function MechanismGap() {
             <ClickableImage
               src="/proof/keyword-planner.png"
               alt="Google Keyword Planner data for roof replacement searches"
+              width={710}
+              height={392}
             />
           </Reveal>
 
@@ -31,6 +33,8 @@ export function MechanismGap() {
             <ClickableImage
               src="/proof/sponsored-ads.png"
               alt="Sponsored ads for roofing on Google search"
+              width={1161}
+              height={853}
             />
           </Reveal>
         </div>

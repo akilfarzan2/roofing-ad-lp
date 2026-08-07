@@ -9,12 +9,12 @@ const CLARITY_PROJECT_ID = "xwj0ras0nw";
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-telegraf",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Monarc Labs — Roofing Growth System",
-  description: "Get 10 roofing jobs every month — a done-for-you Ads, SEO, and AEO system for roofing businesses.",
+  title: "Monarc Labs - AI Recommened Workshops",
+  description: "Get More Calls For Your Auto Repair Shop by ChatGPT and Google AI",
 };
 
 export default function RootLayout({
@@ -37,7 +37,7 @@ export default function RootLayout({
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
-        <Script id="clarity-init" strategy="afterInteractive">
+        <Script id="clarity-init" strategy="lazyOnload">
           {`
             (function(c,l,a,r,i,t,y){
                 c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

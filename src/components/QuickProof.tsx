@@ -29,6 +29,8 @@ export function QuickProof() {
             <ClickableImage
               src="/proof/cgpt-phone-number.png"
               alt="ChatGPT naming All Clutch & Brake Service as its top recommendation"
+              width={547}
+              height={602}
               fit="contain"
               caption="It didn't list ten shops. It picked one."
             />
@@ -38,6 +40,8 @@ export function QuickProof() {
             <ClickableImage
               src="/proof/cgpt-recommended.png"
               alt="ChatGPT ranking All Clutch & Brake Service first and providing their phone number"
+              width={561}
+              height={632}
               fit="contain"
               caption="This is the number it hands out. Every time someone asks."
             />
@@ -47,6 +51,8 @@ export function QuickProof() {
             <ClickableImage
               src="/proof/cgpt-directions.png"
               alt="ChatGPT giving turn-by-turn directions straight to All Clutch & Brake Service"
+              width={547}
+              height={596}
               fit="contain"
               caption="It doesn't just recommend them. It walks the customer to their door."
             />
@@ -67,6 +73,8 @@ export function QuickProof() {
           <ClickableImage
             src="/proof/google-ai-overview.png"
             alt="Google AI Overview naming All Clutch & Brake Service as a top local clutch repair option"
+            width={955}
+            height={572}
             fit="contain"
             caption="Same shop. Different AI. Still picked first."
           />
