@@ -78,19 +78,26 @@ export function ClickableImage({
           onKeyDown={(event) => {
             if (event.key === "Escape" || event.key === "Enter") setIsOpen(false);
           }}
-          className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-[var(--color-slate-900)]/90 p-6"
+          className="fixed inset-0 z-50 flex cursor-zoom-out items-center justify-center bg-[var(--color-slate-900)]/90 p-3 sm:p-6"
         >
-          {/* Same src, sizes and quality as the thumbnail so the enlarged view
-              is served from cache and opens instantly. */}
-          <Image
-            src={src}
-            alt={alt}
-            width={width}
-            height={height}
-            sizes={IMAGE_SIZES}
-            quality={IMAGE_QUALITY}
-            className="h-auto max-h-[90vh] w-auto max-w-[90vw] rounded-[8px] object-contain"
-          />
+          {/*
+           * Uses `fill` rather than intrinsic width/height on purpose.
+           * When an image is chosen from a srcset with `w` descriptors the
+           * browser reports naturalWidth density-corrected — here a 547px
+           * file came back as 177px — so `w-auto` collapsed the enlarged
+           * view to 46% of a phone screen and max-w never fired. Filling the
+           * container makes the size depend on the viewport, not the file.
+           */}
+          <div className="relative h-full w-full">
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              sizes="100vw"
+              quality={IMAGE_QUALITY}
+              className="rounded-[8px] object-contain"
+            />
+          </div>
         </div>
       )}
     </div>
