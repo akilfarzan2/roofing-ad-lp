@@ -6,14 +6,11 @@ import { motion } from "motion/react";
 // TODO: replace with your real Make.com webhook URL once created
 const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/cxhc0a0gyd12syuc99dox8v2b4c9pegt";
 
-const revenueOptions = ["Under $20k", "$20k - $50k", "$50k - $100k", "$100k+"];
-
 interface FormState {
   fullName: string;
   email: string;
   phone: string;
   business: string;
-  revenue: string;
 }
 
 const initialState: FormState = {
@@ -21,19 +18,47 @@ const initialState: FormState = {
   email: "",
   phone: "",
   business: "",
-  revenue: "",
 };
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function getFieldError(field: keyof FormState, value: string): string | null {
+  if (!value.trim()) return "Required";
+  if (field === "email" && !EMAIL_PATTERN.test(value)) return "Enter a valid email";
+  return null;
+}
 
 export function BookingForm() {
   const [formState, setFormState] = useState<FormState>(initialState);
+  const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "submitted" | "error">("idle");
 
   function updateField(field: keyof FormState, value: string) {
     setFormState((previous) => ({ ...previous, [field]: value }));
+    if (errors[field]) {
+      setErrors((previous) => ({ ...previous, [field]: undefined }));
+    }
+  }
+
+  function validateField(field: keyof FormState) {
+    const error = getFieldError(field, formState[field]);
+    setErrors((previous) => ({ ...previous, [field]: error ?? undefined }));
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    const nextErrors: Partial<Record<keyof FormState, string>> = {};
+    (Object.keys(formState) as (keyof FormState)[]).forEach((field) => {
+      const error = getFieldError(field, formState[field]);
+      if (error) nextErrors[field] = error;
+    });
+
+    if (Object.keys(nextErrors).length > 0) {
+      setErrors(nextErrors);
+      return;
+    }
+
     setStatus("submitting");
 
     try {
@@ -71,6 +96,7 @@ export function BookingForm() {
     <form
       id="booking-form"
       onSubmit={handleSubmit}
+      noValidate
       className="flex w-full flex-col gap-3 rounded-[8px] border border-[var(--color-frost)] bg-white/95 p-6 text-left sm:p-8"
     >
       <div className="flex flex-col gap-1">
@@ -80,11 +106,15 @@ export function BookingForm() {
         <input
           id="fullName"
           type="text"
-          required
           value={formState.fullName}
           onChange={(event) => updateField("fullName", event.target.value)}
-          className="h-12 w-full rounded-[8px] border border-[var(--color-cloud)] bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)]"
+          onBlur={() => validateField("fullName")}
+          aria-invalid={Boolean(errors.fullName)}
+          className={`h-12 w-full rounded-[8px] border bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)] ${errors.fullName ? "border-[var(--color-vermillion-signal)]" : "border-[var(--color-cloud)]"}`}
         />
+        {errors.fullName && (
+          <p className="text-[12px] leading-[1.4] text-[var(--color-vermillion-signal)]">{errors.fullName}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -94,11 +124,15 @@ export function BookingForm() {
         <input
           id="email"
           type="email"
-          required
           value={formState.email}
           onChange={(event) => updateField("email", event.target.value)}
-          className="h-12 w-full rounded-[8px] border border-[var(--color-cloud)] bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)]"
+          onBlur={() => validateField("email")}
+          aria-invalid={Boolean(errors.email)}
+          className={`h-12 w-full rounded-[8px] border bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)] ${errors.email ? "border-[var(--color-vermillion-signal)]" : "border-[var(--color-cloud)]"}`}
         />
+        {errors.email && (
+          <p className="text-[12px] leading-[1.4] text-[var(--color-vermillion-signal)]">{errors.email}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -110,11 +144,15 @@ export function BookingForm() {
           type="tel"
           inputMode="numeric"
           pattern="[0-9]*"
-          required
           value={formState.phone}
           onChange={(event) => updateField("phone", event.target.value.replace(/[^0-9]/g, ""))}
-          className="h-12 w-full rounded-[8px] border border-[var(--color-cloud)] bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)]"
+          onBlur={() => validateField("phone")}
+          aria-invalid={Boolean(errors.phone)}
+          className={`h-12 w-full rounded-[8px] border bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)] ${errors.phone ? "border-[var(--color-vermillion-signal)]" : "border-[var(--color-cloud)]"}`}
         />
+        {errors.phone && (
+          <p className="text-[12px] leading-[1.4] text-[var(--color-vermillion-signal)]">{errors.phone}</p>
+        )}
       </div>
 
       <div className="flex flex-col gap-1">
@@ -124,33 +162,15 @@ export function BookingForm() {
         <input
           id="business"
           type="text"
-          required
           value={formState.business}
           onChange={(event) => updateField("business", event.target.value)}
-          className="h-12 w-full rounded-[8px] border border-[var(--color-cloud)] bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)]"
+          onBlur={() => validateField("business")}
+          aria-invalid={Boolean(errors.business)}
+          className={`h-12 w-full rounded-[8px] border bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)] ${errors.business ? "border-[var(--color-vermillion-signal)]" : "border-[var(--color-cloud)]"}`}
         />
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <label htmlFor="revenue" className="text-[13px] leading-[1.4] text-[var(--color-slate-600)]">
-          What is your current monthly revenue?
-        </label>
-        <select
-          id="revenue"
-          required
-          value={formState.revenue}
-          onChange={(event) => updateField("revenue", event.target.value)}
-          className="h-12 w-full rounded-[8px] border border-[var(--color-cloud)] bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)]"
-        >
-          <option value="" disabled>
-            Select a range
-          </option>
-          {revenueOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
+        {errors.business && (
+          <p className="text-[12px] leading-[1.4] text-[var(--color-vermillion-signal)]">{errors.business}</p>
+        )}
       </div>
 
       <button
@@ -158,8 +178,12 @@ export function BookingForm() {
         disabled={status === "submitting"}
         className="mt-2 w-full rounded-[8px] bg-[var(--color-vermillion-signal)] px-6 py-4 text-[16px] font-medium tracking-[0.025em] text-white uppercase transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:active:scale-100"
       >
-        {status === "submitting" ? "Submitting..." : "Book My Strategy Call"}
+        {status === "submitting" ? "Submitting..." : "Make AI Recommend Me"}
       </button>
+
+      <p className="text-center text-[13px] leading-[1.5] text-[var(--color-slate-600)]">
+        Free 30-minute call. We show you how to keep your bays full going into 2027.
+      </p>
 
       {status === "error" && (
         <p className="text-[13px] leading-[1.4] text-[var(--color-vermillion-signal)]">
