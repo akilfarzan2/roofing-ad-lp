@@ -1,12 +1,18 @@
 import Image from "next/image";
 import { BookingForm } from "@/components/BookingForm";
-import { Reveal } from "@/components/Reveal";
 
+/*
+ * The hero deliberately does NOT use <Reveal>. Reveal is a Framer Motion
+ * client component that server-renders its children at opacity:0, so the
+ * headline stayed invisible until ~220KB of JS had downloaded, parsed and
+ * hydrated — a 2.8s first contentful paint on mobile. Entrance motion here
+ * is CSS-only (see .hero-rise in globals.css) so the page paints instantly.
+ */
 export function Hero() {
   return (
     <section className="w-full bg-[var(--color-paper)]">
       <div className="mx-auto flex min-h-[100svh] w-full max-w-[1200px] flex-col items-center justify-center gap-8 px-6 py-16 text-center sm:px-10">
-        <Reveal className="flex max-w-[720px] flex-col items-center gap-4">
+        <div className="hero-rise flex max-w-[720px] flex-col items-center gap-4">
           {/* Logo */}
           {/* Renders ~73px wide at most, so cap what the optimiser serves —
               this is preloaded and competes directly with LCP. */}
@@ -36,11 +42,11 @@ Aussie Auto Repair Shop Owners — You Don't Know This Yet
           <p className="max-w-[480px] text-[14px] leading-[1.5] text-[var(--color-slate-600)] italic">
             They're not a better mechanic than you. That's not why.
           </p>
-        </Reveal>
+        </div>
 
-        <Reveal className="w-full max-w-[420px]" delay={0.15}>
+        <div className="hero-rise-delayed w-full max-w-[420px]">
           <BookingForm />
-        </Reveal>
+        </div>
       </div>
     </section>
   );

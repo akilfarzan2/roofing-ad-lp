@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
-import { motion } from "motion/react";
 
 // TODO: replace with your real Make.com webhook URL once created
 const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/cxhc0a0gyd12syuc99dox8v2b4c9pegt";
@@ -75,12 +74,9 @@ export function BookingForm() {
 
   if (status === "submitted") {
     return (
-      <motion.div
+      <div
         id="booking-form"
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="flex w-full flex-col items-center gap-2 rounded-[8px] border border-[var(--color-frost)] bg-white/95 p-8 text-center"
+        className="form-success-in flex w-full flex-col items-center gap-2 rounded-[8px] border border-[var(--color-frost)] bg-white/95 p-8 text-center"
       >
         <p className="text-[20px] leading-[1.3] font-bold text-[var(--color-slate-900)]">
           Thanks — we&apos;ve got your details.
@@ -88,7 +84,7 @@ export function BookingForm() {
         <p className="text-[16px] leading-[1.5] text-[var(--color-slate-600)]">
           We&apos;ll be in touch shortly.
         </p>
-      </motion.div>
+      </div>
     );
   }
 
