@@ -112,3 +112,59 @@ body {
 #booking-form {
   scroll-margin-top: 24px;
 }
+
+/*
+ * Above-the-fold entrance animation.
+ *
+ * Deliberately CSS-only and transform-only. The hero must never be gated
+ * behind JavaScript — animating opacity from 0 would make the headline
+ * non-contentful until the animation starts, which is exactly the problem
+ * this replaced (Framer Motion shipped the hero at opacity:0, pushing FCP
+ * to 2.8s on mobile). Transform does not affect first contentful paint.
+ */
+@keyframes hero-rise {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.hero-rise-delayed {
+  animation: hero-rise 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise,
+  .hero-rise-delayed {
+    animation: none;
+  }
+}
+
+/* Fade used by the form's success state — replaces a Framer Motion
+   component that was pulling the animation library into the hero. */
+@keyframes form-success-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-success-in {
+  animation: form-success-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .form-success-in {
+    animation: none;
+  }
+}
