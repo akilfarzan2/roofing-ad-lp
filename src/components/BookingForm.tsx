@@ -2,8 +2,11 @@
 
 import { useState, type FormEvent } from "react";
 
-// TODO: replace with your real Make.com webhook URL once created
-const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/cxhc0a0gyd12syuc99dox8v2b4c9pegt";
+declare global {
+  interface Window {
+    fbq?: (...args: unknown[]) => void;
+  }
+}
 
 interface FormState {
   fullName: string;
@@ -60,12 +63,27 @@ export function BookingForm() {
 
     setStatus("submitting");
 
+    // Shared between the browser Pixel call below and the server-side
+    // Meta Conversions API call in /api/lead, so Meta can dedupe the two
+    // into a single counted conversion instead of double-counting.
+    const eventId = crypto.randomUUID();
+
     try {
-      await fetch(MAKE_WEBHOOK_URL, {
+      const response = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formState),
+        body: JSON.stringify({
+          ...formState,
+          eventId,
+          eventSourceUrl: window.location.href,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error(`/api/lead responded with ${response.status}`);
+      }
+
+      window.fbq?.("track", "Lead", {}, { eventID: eventId });
       setStatus("submitted");
     } catch {
       setStatus("error");
