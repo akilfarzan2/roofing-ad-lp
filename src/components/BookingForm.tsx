@@ -4,16 +4,13 @@ import { useState, type FormEvent } from "react";
 import { motion } from "motion/react";
 
 // TODO: replace with your real Make.com webhook URL once created
-const MAKE_WEBHOOK_URL = "https://hook.us1.make.com/REPLACE_WITH_YOUR_WEBHOOK_ID";
-
-const revenueOptions = ["Under $20k", "$20k - $50k", "$50k - $100k", "$100k+"];
+const MAKE_WEBHOOK_URL = "https://hook.us2.make.com/cxhc0a0gyd12syuc99dox8v2b4c9pegt";
 
 interface FormState {
   fullName: string;
   email: string;
   phone: string;
   business: string;
-  revenue: string;
 }
 
 const initialState: FormState = {
@@ -21,7 +18,6 @@ const initialState: FormState = {
   email: "",
   phone: "",
   business: "",
-  revenue: "",
 };
 
 export function BookingForm() {
@@ -131,35 +127,17 @@ export function BookingForm() {
         />
       </div>
 
-      <div className="flex flex-col gap-1">
-        <label htmlFor="revenue" className="text-[13px] leading-[1.4] text-[var(--color-slate-600)]">
-          What is your current monthly revenue?
-        </label>
-        <select
-          id="revenue"
-          required
-          value={formState.revenue}
-          onChange={(event) => updateField("revenue", event.target.value)}
-          className="h-12 w-full rounded-[8px] border border-[var(--color-cloud)] bg-white px-4 text-[16px] text-[var(--color-slate-900)] outline-none focus:border-[var(--color-slate-900)]"
-        >
-          <option value="" disabled>
-            Select a range
-          </option>
-          {revenueOptions.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      </div>
-
       <button
         type="submit"
         disabled={status === "submitting"}
         className="mt-2 w-full rounded-[8px] bg-[var(--color-vermillion-signal)] px-6 py-4 text-[16px] font-medium tracking-[0.025em] text-white uppercase transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-60 disabled:active:scale-100"
       >
-        {status === "submitting" ? "Submitting..." : "Book My Strategy Call"}
+        {status === "submitting" ? "Submitting..." : "Make AI Recommend Me"}
       </button>
+
+      <p className="text-center text-[13px] leading-[1.5] text-[var(--color-slate-600)]">
+        Free 30-minute call. We show you how to keep your bays full going into 2027.
+      </p>
 
       {status === "error" && (
         <p className="text-[13px] leading-[1.4] text-[var(--color-vermillion-signal)]">

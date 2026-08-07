@@ -1,13 +1,4 @@
-import { ClickableImage } from "@/components/ClickableImage";
-import { Reveal, RevealGroup, RevealItem } from "@/components/Reveal";
-
-function ProofBadge({ label }: { label: string }) {
-  return (
-    <span className="absolute -top-3 right-4 z-10 rounded-[8px] bg-[var(--color-carbon)] px-3 py-1.5 text-[12px] leading-[1.4] font-medium tracking-[0.3px] whitespace-nowrap text-white shadow-[var(--shadow-subtle)]">
-      {label}
-    </span>
-  );
-}
+import { Reveal } from "@/components/Reveal";
 
 function StatBlock() {
   return (
@@ -24,53 +15,43 @@ function StatBlock() {
 
 export function Proof() {
   return (
-    <section className="w-full bg-[var(--color-vellum)]">
-      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center gap-10 px-6 py-12 sm:px-10 sm:py-16">
-        {/* Sub-2: Case study (All Clutch & Brake Service) */}
-        <div className="flex w-full max-w-[640px] flex-col gap-6">
+    <>
+      <section className="w-full bg-[var(--color-vellum)]">
+        <div className="mx-auto flex w-full max-w-[640px] flex-col items-center gap-6 px-6 py-12 sm:px-10 sm:py-16">
           <Reveal className="flex flex-col items-center gap-2 text-center">
+            <p className="text-[12px] leading-[1.5] text-[var(--color-slate-600)]">
+              We make sure you&apos;re the one they find - and the one they call.
+            </p>
             <h2 className="text-[24px] leading-[1.3] font-bold tracking-[-0.4px] text-[var(--color-slate-900)] sm:text-[30px] sm:leading-[1.33]">
-              Our System In Action
+              Our Done-For-You System In Action
             </h2>
             <p className="text-[16px] leading-[1.5] text-[var(--color-slate-600)] italic">
               Recent project: All Clutch &amp; Brake Service.
             </p>
           </Reveal>
 
-          <RevealGroup className="flex w-full flex-col gap-8">
-            <RevealItem className="relative mt-3">
-              <ProofBadge label="Brings In Customers" />
-              <StatBlock />
-            </RevealItem>
-            <RevealItem className="relative mt-3">
-              <ProofBadge label="Recommended By ChatGPT" />
-              <ClickableImage
-                src="/proof/chatgpt-recommendation.png"
-                alt="ChatGPT recommending All Clutch & Brake Service"
-                fit="cover"
-              />
-            </RevealItem>
-            <RevealItem className="relative mt-3">
-              <ProofBadge label="Ranks Top Of Google" />
-              <ClickableImage
-                src="/proof/google-search-result.png"
-                alt="All Clutch & Brake Service ranking #1 on Google Search"
-                fit="cover"
-                cropPosition="left"
-                aspectRatio="3/2"
-              />
-            </RevealItem>
-          </RevealGroup>
-        </div>
+          <Reveal className="flex w-full flex-col items-center gap-3" delay={0.1}>
+            <StatBlock />
+            <p className="max-w-[480px] text-center text-[13px] leading-[1.4] text-[var(--color-slate-500)] italic">
+              That's phone activity. Not clicks. Actual calls.
 
-        {/* CTA #1 — anchor-scroll to calculator */}
-        <a
-          href="#booking-form"
-          className="w-fit rounded-[8px] bg-[var(--color-vermillion-signal)] px-6 py-4 text-center text-[14px] font-medium tracking-[0.025em] text-white uppercase transition-opacity hover:opacity-90 active:scale-[0.98] sm:text-[16px]"
-        >
-          Get My New Lead System
-        </a>
-      </div>
-    </section>
+
+            </p>
+          </Reveal>
+
+          <Reveal className="text-center" delay={0.15}>
+            <p className="text-[18px] leading-[1.5] font-semibold text-[var(--color-slate-900)]">
+            
+            </p>
+          </Reveal>
+
+          <Reveal className="text-center" delay={0.2}>
+            <p className="text-[16px] leading-[1.5] font-medium text-[var(--color-slate-900)]">
+              So how do we actually do it? Here&apos;s exactly what&apos;s included.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+    </>
   );
 }
