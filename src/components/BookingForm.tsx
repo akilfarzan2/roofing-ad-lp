@@ -196,7 +196,7 @@ export function BookingForm() {
       </button>
 
       <p className="text-center text-[13px] leading-[1.5] text-[var(--color-slate-600)]">
-        Free 30-minute call. We show you how to keep your bays full going into 2027.
+        Doing nothing sends $28,000+ a year to the shop down the road. This call only costs you 30 minutes. We show you how to get AI to keep your bays full going into 2027.
       </p>
 
       {status === "error" && (

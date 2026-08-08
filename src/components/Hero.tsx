@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { BookingForm } from "@/components/BookingForm";
 
 /*
  * The hero deliberately does NOT use <Reveal>. Reveal is a Framer Motion
@@ -28,24 +27,19 @@ export function Hero() {
 
           {/* Eyebrow line */}
           <p className="text-[14px] leading-[1.43] text-[var(--color-slate-600)]">
-Aussie Auto Repair Shop Owners — You Don't Know This Yet
-
+            Aussie Repair Shop Owners — Here&apos;s Something You Don&apos;t Know Yet:
           </p>
 
           {/* Headline */}
           <h1 className="text-[32px] leading-[1.15] font-bold tracking-[-0.6px] text-[var(--color-slate-900)] sm:text-[44px] sm:tracking-[-1px] lg:text-[56px] lg:leading-[1.1] lg:tracking-[-1.3px]">
-            You're losing customers to the workshop down the road because{" "}
-            <span className="text-[var(--color-vermillion-signal)]">ChatGPT is telling people to call them</span>, not you 
+            Is{" "}
+            <span className="text-[var(--color-vermillion-signal)]">ChatGPT Sending Your Customers</span> To The Workshop Down The Road?
           </h1>
 
           {/* Subheadline */}
           <p className="max-w-[480px] text-[14px] leading-[1.5] text-[var(--color-slate-600)] italic">
             They're not a better mechanic than you. That's not why.
           </p>
-        </div>
-
-        <div className="hero-rise-delayed w-full max-w-[420px]">
-          <BookingForm />
         </div>
       </div>
     </section>
