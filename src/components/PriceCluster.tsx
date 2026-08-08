@@ -1,4 +1,5 @@
 import { Reveal } from "@/components/Reveal";
+import { BookingForm } from "@/components/BookingForm";
 
 interface Tick {
   heading: string;
@@ -45,17 +46,10 @@ export function PriceCluster() {
           </div>
         </Reveal>
 
-        <Reveal className="flex flex-col items-center gap-3" delay={0.15}>
-          <a
-            href="#booking-form"
-            className="w-fit rounded-[8px] bg-[var(--color-vermillion-signal)] px-8 py-4 text-[16px] font-medium tracking-[0.025em] text-white uppercase transition-opacity hover:opacity-90 active:scale-[0.98]"
-          >
-            Make AI Recommend Me
-          </a>
-
-          <p className="max-w-[420px] text-[13px] leading-[1.5] text-white/50">
-            Doing nothing sends $28,800 a year to the shop down the road. This call costs 30 minutes.
-          </p>
+        <Reveal className="flex w-full flex-col items-center gap-3" delay={0.15}>
+          <div className="w-full max-w-[420px]">
+            <BookingForm />
+          </div>
         </Reveal>
       </div>
     </section>
